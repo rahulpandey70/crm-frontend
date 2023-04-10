@@ -1,13 +1,13 @@
 import "./App.css";
 import Default from "./Layout/Default/Default";
-import Dashboard from "./pages/dashboard/Dashboard";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 function App() {
 	return (
 		<div className="App">
 			<Default>
-				{/* <Dashboard /> */}
-				//Dashbord area
+				{/* <LoginPage /> */}
+				//dashboard
 			</Default>
 		</div>
 	);
