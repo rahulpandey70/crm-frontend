@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
-const Login = () => {
+const Login = ({ handleOnChange, email, password }) => {
 	return (
 		<Container>
 			<Row>
@@ -14,6 +14,8 @@ const Login = () => {
 							<Form.Control
 								type="email"
 								name="email"
+								value={email}
+								onChange={handleOnChange}
 								placeholder="Enter Email"
 								required
 							/>
@@ -23,6 +25,8 @@ const Login = () => {
 							<Form.Control
 								type="password"
 								name="password"
+								value={password}
+								onChange={handleOnChange}
 								placeholder="Enter Password"
 								required
 							/>
