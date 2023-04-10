@@ -2,20 +2,23 @@ import React from "react";
 import propTypes from "prop-types";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
-const Login = ({
+const PasswordReset = ({
 	handleOnChange,
-	handleOnSubmit,
+	handleOnRestSubmit,
 	formLoader,
 	email,
-	password,
 }) => {
 	return (
 		<Container>
 			<Row>
 				<Col>
-					<h1 className="text-info text-center">Login</h1>
+					<h1 className="text-info text-center">Reset Password</h1>
 					<hr />
-					<Form className="mt-4" autoComplete="off" onSubmit={handleOnSubmit}>
+					<Form
+						className="mt-4"
+						autoComplete="off"
+						onSubmit={handleOnRestSubmit}
+					>
 						<Form.Group className="mt-2">
 							<Form.Label>Email Address</Form.Label>
 							<Form.Control
@@ -27,19 +30,8 @@ const Login = ({
 								required
 							/>
 						</Form.Group>
-						<Form.Group className="mt-2">
-							<Form.Label>Password</Form.Label>
-							<Form.Control
-								type="password"
-								name="password"
-								value={password}
-								onChange={handleOnChange}
-								placeholder="Enter Password"
-								required
-							/>
-						</Form.Group>
 						<Button type="submit" className="mt-2">
-							Login
+							Reset Password
 						</Button>
 					</Form>
 					<hr />
@@ -47,8 +39,8 @@ const Login = ({
 			</Row>
 			<Row>
 				<Col>
-					<a href="#" onClick={() => formLoader("reset")}>
-						Forget Password?
+					<a href="#" onClick={() => formLoader("login")}>
+						Login Now
 					</a>
 				</Col>
 			</Row>
@@ -56,12 +48,11 @@ const Login = ({
 	);
 };
 
-export default Login;
+export default PasswordReset;
 
-Login.propTypes = {
+PasswordReset.propTypes = {
 	handleOnChange: propTypes.func.isRequired,
-	handleOnSubmit: propTypes.func.isRequired,
+	handleOnRestSubmit: propTypes.func.isRequired,
 	formLoader: propTypes.func.isRequired,
 	email: propTypes.string.isRequired,
-	password: propTypes.string.isRequired,
 };
