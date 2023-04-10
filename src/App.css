@@ -10,7 +10,7 @@ header {
 
 main {
     grid-area: main;
-    min-height: 82.43vh;
+    min-height: 88vh;
 }
 
 footer {

@@ -4,7 +4,7 @@ import Footer from "../Footer";
 
 const Default = ({ children }) => {
 	return (
-		<div className="default-layut">
+		<div className="default-layout">
 			<header className="header">
 				<Header />
 			</header>
