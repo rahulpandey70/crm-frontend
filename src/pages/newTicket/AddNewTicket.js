@@ -26,7 +26,7 @@ const AddNewTicket = () => {
 	};
 
 	return (
-		<Container className="mt-4">
+		<Container>
 			<Row>
 				<Col>
 					<Breadcumbs page="New Ticket" />
