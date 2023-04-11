@@ -1,5 +1,27 @@
 [
-	{ "id": 1, "subject": "demo", "status": "Pending", "date": "2023-03-9" },
+	{
+		"id": 1,
+		"subject": "demo",
+		"status": "Pending",
+		"date": "2023-03-9",
+		"history": [
+			{
+				"date": "2023-04-10",
+				"message": "hey, how are you",
+				"messageBy": "client"
+			},
+			{
+				"date": "2023-04-10",
+				"message": "hey, i'm good",
+				"messageBy": "operator"
+			},
+			{
+				"date": "2023-04-10",
+				"message": "hey, how are you",
+				"messageBy": "client"
+			}
+		]
+	},
 	{ "id": 2, "subject": "email", "status": "Pending", "date": "2023-03-9" },
 	{ "id": 3, "subject": "email", "status": "Pending", "date": "2023-03-9" },
 	{ "id": 4, "subject": "java", "status": "Pending", "date": "2023-03-9" },
