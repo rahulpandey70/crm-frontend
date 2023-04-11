@@ -31,7 +31,7 @@ const TicketDetail = () => {
 			<Row>
 				<Col className="text-weight-border text-secondary">
 					<div className="subject">Subject : {ticket.subject}</div>
-					<div className="date">Date : {ticket.date}</div>
+					<div className="date">Ticket Opened : {ticket.date}</div>
 					<div className="status">Status : {ticket.status}</div>
 				</Col>
 				<Col className="text-end">
