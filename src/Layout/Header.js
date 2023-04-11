@@ -4,7 +4,13 @@ import { Nav, Navbar } from "react-bootstrap";
 
 const Header = () => {
 	return (
-		<Navbar collapseOnSelect bg="info" variant="dark" expand="md">
+		<Navbar
+			collapseOnSelect
+			bg="info"
+			variant="dark"
+			expand="md"
+			style={{ zIndex: "2" }}
+		>
 			<Navbar.Brand>
 				<img src={logo} alt="logo" width="50px" />
 			</Navbar.Brand>
