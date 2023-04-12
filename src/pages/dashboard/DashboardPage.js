@@ -3,8 +3,10 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import TicketTable from "../../components/TicketTable/TicketTable";
 import Tickets from "../../assets/data/dummyData.json";
 import Breadcumbs from "../../components/Breadcumbs";
+import { useNavigate } from "react-router-dom";
 
 const DashboardPage = () => {
+	const navigate = useNavigate();
 	return (
 		<Container>
 			<Row>
@@ -17,6 +19,7 @@ const DashboardPage = () => {
 					<Button
 						variant="info"
 						style={{ fontSize: "2rem", padding: "10px 30px", color: "white" }}
+						onClick={() => navigate("/add-ticket")}
 					>
 						Add New Ticket
 					</Button>

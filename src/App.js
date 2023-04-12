@@ -6,6 +6,7 @@ import AddNewTicket from "./pages/newTicket/AddNewTicket";
 import TicketList from "./pages/ticketList/TicketList";
 import TicketDetail from "./pages/ticketDetail/TicketDetail";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
 	return (
@@ -14,10 +15,12 @@ function App() {
 				<Routes>
 					<Route exact path="/" element={<LoginPage />} />
 					<Route element={<Default />}>
-						<Route path="/dashboard" element={<DashboardPage />} />
-						<Route path="/add-ticket" element={<AddNewTicket />} />
-						<Route path="/all-tickets" element={<TicketList />} />
-						<Route path="/ticket/:tid" element={<TicketDetail />} />
+						<Route element={<PrivateRoute />}>
+							<Route path="/dashboard" element={<DashboardPage />} />
+							<Route path="/add-ticket" element={<AddNewTicket />} />
+							<Route path="/all-tickets" element={<TicketList />} />
+							<Route path="/ticket/:tId" element={<TicketDetail />} />
+						</Route>
 					</Route>
 				</Routes>
 			</Router>

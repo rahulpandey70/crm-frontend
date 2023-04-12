@@ -4,10 +4,13 @@ import Breadcumbs from "../../components/Breadcumbs";
 import SearchForm from "../../components/Search/SearchForm";
 import TicketTable from "../../components/TicketTable/TicketTable";
 import Tickets from "../../assets/data/dummyData.json";
+import { useNavigate } from "react-router-dom";
 
 const TicketList = () => {
 	const [str, setStr] = useState("");
 	const [displayTicket, setDisplayTicket] = useState(Tickets);
+
+	const navigate = useNavigate();
 
 	const searchTicket = (s) => {
 		const filteredTicket = Tickets.filter((ticket) =>
@@ -35,7 +38,9 @@ const TicketList = () => {
 			</Row>
 			<Row className="mt-4">
 				<Col>
-					<Button variant="info">Add New Ticket</Button>
+					<Button variant="info" onClick={() => navigate("/add-ticket")}>
+						Add New Ticket
+					</Button>
 				</Col>
 				<Col className="text-end">
 					<SearchForm handleOnChange={handleOnChange} str={str} />

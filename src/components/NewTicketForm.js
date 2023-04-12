@@ -4,7 +4,6 @@ import "../pages/newTicket/AddNewTicket.css";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 
 const NewTicketForm = ({ handleOnChange, handleOnSubmit, formData }) => {
-	console.log(formData);
 	return (
 		<Card className="mt-3 ticket-form bg-light" style={{ border: "none" }}>
 			<h3 className="text-info text-center">Add New Ticket</h3>

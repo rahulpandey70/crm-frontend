@@ -5,9 +5,14 @@ import Tickets from "../../assets/data/dummyData.json";
 import TicketHistory from "../../components/TicketHistory/TicketHistory";
 import ReplyToClient from "../../components/ReplyToClient";
 
+import { useParams } from "react-router-dom";
+
 const ticket = Tickets[0];
 const TicketDetail = () => {
+	const { tId } = useParams();
+
 	const [message, setMessage] = useState("");
+	const [ticket, setTicket] = useState("");
 
 	const handleOnChange = (e) => {
 		const { value } = e.target;
@@ -19,7 +24,14 @@ const TicketDetail = () => {
 		alert("Reply submitted");
 	};
 
-	useEffect(() => {}, [message]);
+	useEffect(() => {
+		for (let i = 0; i < Tickets.length; i++) {
+			if (Tickets[i].id == tId) {
+				setTicket(Tickets[i]);
+				continue;
+			}
+		}
+	}, [message, tId]);
 
 	return (
 		<Container>
@@ -38,11 +50,8 @@ const TicketDetail = () => {
 					<Button variant="outline-info">Close Ticket</Button>
 				</Col>
 			</Row>
-			<hr />
 			<Row className="mt-4">
-				<Col>
-					<TicketHistory msg={ticket.history} />
-				</Col>
+				<Col>{ticket.history && <TicketHistory msg={ticket.history} />}</Col>
 			</Row>
 			<hr />
 			<Row className="mt-4">
