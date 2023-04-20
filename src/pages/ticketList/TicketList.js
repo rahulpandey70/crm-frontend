@@ -6,28 +6,16 @@ import TicketTable from "../../components/TicketTable/TicketTable";
 import Tickets from "../../assets/data/dummyData.json";
 import { useNavigate } from "react-router-dom";
 
-const TicketList = () => {
-	const [str, setStr] = useState("");
-	const [displayTicket, setDisplayTicket] = useState(Tickets);
+import { useDispatch } from "react-redux";
+import { fetchAllTickets } from "../../redux-toolkit/actions/ticketActions";
 
+const TicketList = () => {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const searchTicket = (s) => {
-		const filteredTicket = Tickets.filter((ticket) =>
-			ticket.subject.toLowerCase().includes(s.toLowerCase())
-		);
-		setDisplayTicket(filteredTicket);
-	};
-
-	const handleOnChange = (e) => {
-		const { value } = e.target;
-		setStr(value);
-		searchTicket(value);
-	};
-
 	useEffect(() => {
-		// setDisplayTicket(Tickets);
-	}, [str, displayTicket]);
+		dispatch(fetchAllTickets());
+	}, []);
 
 	return (
 		<Container>
@@ -43,13 +31,13 @@ const TicketList = () => {
 					</Button>
 				</Col>
 				<Col className="text-end">
-					<SearchForm handleOnChange={handleOnChange} str={str} />
+					<SearchForm />
 				</Col>
 			</Row>
 			<hr />
 			<Row>
 				<Col>
-					<TicketTable Tickets={displayTicket} />
+					<TicketTable />
 				</Col>
 			</Row>
 		</Container>
