@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Breadcumbs from "../../components/Breadcumbs";
 import SearchForm from "../../components/Search/SearchForm";
 import TicketTable from "../../components/TicketTable/TicketTable";
-import Tickets from "../../assets/data/dummyData.json";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
