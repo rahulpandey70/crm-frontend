@@ -16,6 +16,8 @@ import {
 	loginError,
 } from "../../redux-toolkit/slice/loginSlice";
 
+import { getUserProfile } from "../../redux-toolkit/actions/userActions";
+
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux-toolkit/actions/loginActions";
 
@@ -58,6 +60,7 @@ const Login = ({ formLoader }) => {
 			}
 
 			dispatch(loginSuccess());
+			dispatch(getUserProfile());
 			navigate("/dashboard");
 		} catch (error) {
 			dispatch(loginError(error.message));
