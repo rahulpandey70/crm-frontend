@@ -10,7 +10,12 @@ const TicketTable = () => {
 	);
 
 	if (isLoading) return <Spinner variant="primary" animation="border" />;
-	if (error) return <Alert className="text-center">{error}</Alert>;
+	if (error)
+		return (
+			<Alert className="text-center" variant="danger">
+				{error}
+			</Alert>
+		);
 
 	return (
 		<Table striped bordered hover>

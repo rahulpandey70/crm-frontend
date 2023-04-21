@@ -6,6 +6,12 @@ import { LinkContainer } from "react-router-bootstrap";
 
 const Header = () => {
 	const navigate = useNavigate();
+
+	const logOut = () => {
+		sessionStorage.removeItem("accessToken");
+		navigate("/");
+	};
+
 	return (
 		<Navbar
 			collapseOnSelect
@@ -29,7 +35,7 @@ const Header = () => {
 					<LinkContainer to="/all-tickets">
 						<Nav.Link>Tickets</Nav.Link>
 					</LinkContainer>
-					<Nav.Link onClick={() => navigate("/")}>Logout</Nav.Link>
+					<Nav.Link onClick={logOut}>Logout</Nav.Link>
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>

@@ -5,13 +5,11 @@ import {
 	getUserError,
 } from "../slice/userSlice";
 
-const userProfileUrl = "http://localhost:5000/v1/user";
-
 export const getUserProfile = () => (dispatch) => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			dispatch(getUserPending());
-			const result = await axios.get(userProfileUrl, {
+			const result = await axios.get("http://localhost:5000/v1/user", {
 				headers: {
 					Authorization: sessionStorage.getItem("accessToken"),
 				},
@@ -23,4 +21,16 @@ export const getUserProfile = () => (dispatch) => {
 			dispatch(getUserError(error.message));
 		}
 	});
+};
+
+export const userLogout = async () => {
+	try {
+		await axios.delete("http://localhost:5000/v1/user/logout", {
+			headers: {
+				Authorization: sessionStorage.getItem("accessToken"),
+			},
+		});
+	} catch (error) {
+		throw new Error(error);
+	}
 };

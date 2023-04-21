@@ -8,6 +8,8 @@ export const userLogin = (data) => {
 			const result = await axios.post(loginUrl, data);
 			resolve(result.data);
 
+			console.log(result);
+
 			if (result.data.status === "success") {
 				sessionStorage.setItem("accessToken", result.data.accessToken);
 				localStorage.setItem(
