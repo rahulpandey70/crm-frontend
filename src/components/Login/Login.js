@@ -1,20 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import propTypes from "prop-types";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import {
+	Button,
+	Col,
+	Container,
+	Form,
+	Row,
+	Spinner,
+	Alert,
+} from "react-bootstrap";
 
-const Login = ({
-	handleOnChange,
-	handleOnSubmit,
-	formLoader,
-	email,
-	password,
-}) => {
+import {
+	loginPending,
+	loginSuccess,
+	loginError,
+} from "../../redux-toolkit/slice/loginSlice";
+
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../redux-toolkit/actions/loginActions";
+
+import { useNavigate } from "react-router-dom";
+
+const Login = ({ formLoader }) => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const { isLoading, isAuth, error } = useSelector((state) => state.login);
+
+	const handleOnChange = (e) => {
+		const { name, value } = e.target;
+		switch (name) {
+			case "email":
+				setEmail(value);
+				break;
+			case "password":
+				setPassword(value);
+				break;
+			default:
+				break;
+		}
+	};
+
+	const handleOnSubmit = async (e) => {
+		e.preventDefault();
+		if (!email || !password) {
+			return alert("Please fill up all the form!");
+		}
+
+		dispatch(loginPending());
+		//TODO call api to submit the form
+		try {
+			const auth = await userLogin({ email, password });
+			if (auth.status === "error") {
+				return dispatch(loginError(auth.message));
+			}
+
+			dispatch(loginSuccess());
+			navigate("/dashboard");
+		} catch (error) {
+			dispatch(loginError(error.message));
+		}
+	};
+
 	return (
 		<Container>
 			<Row>
 				<Col>
 					<h1 className="text-info text-center">Login</h1>
 					<hr />
+					{error && (
+						<Alert variant="danger" className="text-center">
+							{error}
+						</Alert>
+					)}
 					<Form className="mt-4" autoComplete="off" onSubmit={handleOnSubmit}>
 						<Form.Group className="mt-2">
 							<Form.Label>Email Address</Form.Label>
@@ -41,6 +101,7 @@ const Login = ({
 						<Button type="submit" className="mt-2">
 							Login
 						</Button>
+						{isLoading && <Spinner variant="primary" animation="border" />}
 					</Form>
 					<hr />
 				</Col>
@@ -59,9 +120,5 @@ const Login = ({
 export default Login;
 
 Login.propTypes = {
-	handleOnChange: propTypes.func.isRequired,
-	handleOnSubmit: propTypes.func.isRequired,
 	formLoader: propTypes.func.isRequired,
-	email: propTypes.string.isRequired,
-	password: propTypes.string.isRequired,
 };
