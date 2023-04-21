@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Table, Spinner, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
@@ -9,8 +9,8 @@ const TicketTable = () => {
 		(state) => state.tickets
 	);
 
-	if (isLoading) return <h3 className="text-center">Loadig...</h3>;
-	if (error) return <h3 className="text-center">{error}</h3>;
+	if (isLoading) return <Spinner variant="primary" animation="border" />;
+	if (error) return <Alert className="text-center">{error}</Alert>;
 
 	return (
 		<Table striped bordered hover>
