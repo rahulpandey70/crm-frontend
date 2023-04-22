@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-const auth = true;
+import { loginSuccess } from "../../redux-toolkit/slice/loginSlice";
+import { getNewAccessToken } from "../../redux-toolkit/actions/userActions";
+
 const PrivateRoute = ({ children, ...rest }) => {
-	return auth ? (
+	const dispatch = useDispatch();
+	const { isAuth } = useSelector((state) => state.login);
+
+	useEffect(() => {
+		const updateJwtToken = async () => {
+			const result = await getNewAccessToken();
+			result && dispatch(loginSuccess());
+		};
+
+		updateJwtToken();
+		sessionStorage.getItem("accessToken") && dispatch(loginSuccess());
+	}, [isAuth, dispatch]);
+
+	return isAuth ? (
 		<>
 			<Outlet />
 			{children}

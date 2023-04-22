@@ -1,12 +1,13 @@
 import React from "react";
 import { Breadcrumb } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 
 const Breadcumbs = ({ page }) => {
-	const navigate = useNavigate();
 	return (
 		<Breadcrumb className="mt-4">
-			<Breadcrumb.Item onClick={() => navigate("/")}>Home</Breadcrumb.Item>
+			<LinkContainer to="/">
+				<Breadcrumb.Item>Home</Breadcrumb.Item>
+			</LinkContainer>
 			<Breadcrumb.Item active>{page}</Breadcrumb.Item>
 		</Breadcrumb>
 	);

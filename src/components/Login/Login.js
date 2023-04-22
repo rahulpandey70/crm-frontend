@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import propTypes from "prop-types";
 import {
 	Button,
@@ -30,6 +30,10 @@ const Login = ({ formLoader }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { isLoading, isAuth, error } = useSelector((state) => state.login);
+
+	useEffect(() => {
+		sessionStorage.getItem("accessToken") && navigate("/dashboard");
+	}, [navigate, isAuth]);
 
 	const handleOnChange = (e) => {
 		const { name, value } = e.target;

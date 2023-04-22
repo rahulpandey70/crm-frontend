@@ -4,11 +4,15 @@ import { Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 
+import { userLogout } from "../redux-toolkit/actions/userActions";
+
 const Header = () => {
 	const navigate = useNavigate();
 
 	const logOut = () => {
 		sessionStorage.removeItem("accessToken");
+		localStorage.removeItem("crmRfToken");
+		userLogout();
 		navigate("/");
 	};
 
