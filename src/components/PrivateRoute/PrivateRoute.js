@@ -15,8 +15,13 @@ const PrivateRoute = ({ children, ...rest }) => {
 			result && dispatch(loginSuccess());
 		};
 
-		updateJwtToken();
-		sessionStorage.getItem("accessToken") && dispatch(loginSuccess());
+		!sessionStorage.getItem("accessToken") &&
+			localStorage.getItem("crmRfToken") &&
+			updateJwtToken();
+
+		!isAuth &&
+			sessionStorage.getItem("accessToken") &&
+			dispatch(loginSuccess());
 	}, [isAuth, dispatch]);
 
 	return isAuth ? (
