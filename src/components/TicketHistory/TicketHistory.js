@@ -7,8 +7,8 @@ const TicketHistory = ({ msg }) => {
 	return msg.map((singleMsg, idx) => (
 		<div key={idx} className="ticket-history mt-3">
 			<div className="send font-weight-bold text-secondary">
-				<div className="sender">{singleMsg.messageBy}</div>
-				<div className="date">{singleMsg.date}</div>
+				<div className="sender">{singleMsg.sender}</div>
+				<div className="date">{singleMsg.msgAt}</div>
 			</div>
 			<div className="msg">{singleMsg.message}</div>
 		</div>
