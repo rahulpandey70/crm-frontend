@@ -9,21 +9,26 @@ export const getUserProfile = () => (dispatch) => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			dispatch(getUserPending());
-			const result = await axios.get("http://localhost:5000/v1/user", {
+			const result = await axios.get("http://localhost:5000/v1/user/", {
 				headers: {
 					Authorization: sessionStorage.getItem("accessToken"),
 				},
 			});
+
 			resolve(result.data);
-			dispatch(getUserSuccess(result.data));
+
+			if (result.data.user && result.data.user._id) {
+				return dispatch(getUserSuccess(result.data.user));
+			}
+
+			dispatch(getUserError("User not found"));
 		} catch (error) {
 			reject(error.message);
+			console.log("user not found", error.message);
 			dispatch(getUserError(error.message));
 		}
 	});
 };
-
-// GET http://localhost:5000/v1/rf-token
 
 export const getNewAccessToken = () => {
 	return new Promise(async (resolve, reject) => {
@@ -49,14 +54,21 @@ export const getNewAccessToken = () => {
 	});
 };
 
-export const userLogout = async () => {
-	try {
-		await axios.delete("http://localhost:5000/v1/user/logout", {
-			headers: {
-				Authorization: sessionStorage.getItem("accessToken"),
-			},
-		});
-	} catch (error) {
-		throw new Error(error);
-	}
+export const userLogout = () => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const result = await axios.delete(
+				"http://localhost:5000/v1/user/logout",
+				{
+					headers: {
+						Authorization: sessionStorage.getItem("accessToken"),
+					},
+				}
+			);
+
+			resolve(result.data);
+		} catch (error) {
+			reject(error.message);
+		}
+	});
 };

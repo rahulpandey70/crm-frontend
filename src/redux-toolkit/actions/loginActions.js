@@ -1,14 +1,13 @@
 import axios from "axios";
 
-const loginUrl = "http://localhost:5000/v1/user/login";
-
 export const userLogin = (data) => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const result = await axios.post(loginUrl, data);
+			const result = await axios.post(
+				"http://localhost:5000/v1/user/login",
+				data
+			);
 			resolve(result.data);
-
-			console.log(result);
 
 			if (result.data.status === "success") {
 				sessionStorage.setItem("accessToken", result.data.accessToken);
