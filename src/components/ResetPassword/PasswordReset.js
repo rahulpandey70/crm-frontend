@@ -30,7 +30,7 @@ const PasswordReset = ({
 								required
 							/>
 						</Form.Group>
-						<Button type="submit" className="mt-2">
+						<Button type="submit" className="mt-2" style={{ width: "100%" }}>
 							Reset Password
 						</Button>
 					</Form>

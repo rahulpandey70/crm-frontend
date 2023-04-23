@@ -105,7 +105,7 @@ const Login = ({ formLoader }) => {
 								required
 							/>
 						</Form.Group>
-						<Button type="submit" className="mt-2">
+						<Button type="submit" className="mt-2" style={{ width: "100%" }}>
 							Login
 						</Button>
 						{isLoading && <Spinner variant="primary" animation="border" />}
