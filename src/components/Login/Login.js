@@ -56,7 +56,6 @@ const Login = ({ formLoader }) => {
 		}
 
 		dispatch(loginPending());
-		//TODO call api to submit the form
 		try {
 			const auth = await userLogin({ email, password });
 			if (auth.status === "error") {

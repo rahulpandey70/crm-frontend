@@ -5,15 +5,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess } from "../../redux-toolkit/slice/loginSlice";
 import { getNewAccessToken } from "../../redux-toolkit/actions/userActions";
 
+import { getUserProfile } from "../../redux-toolkit/actions/userActions";
+
 const PrivateRoute = ({ children, ...rest }) => {
 	const dispatch = useDispatch();
 	const { isAuth } = useSelector((state) => state.login);
+	const {
+		user: { _id },
+	} = useSelector((state) => state.user);
 
 	useEffect(() => {
 		const updateJwtToken = async () => {
 			const result = await getNewAccessToken();
 			result && dispatch(loginSuccess());
 		};
+
+		_id && dispatch(getUserProfile());
 
 		!sessionStorage.getItem("accessToken") &&
 			localStorage.getItem("crmRfToken") &&
@@ -22,7 +29,7 @@ const PrivateRoute = ({ children, ...rest }) => {
 		!isAuth &&
 			sessionStorage.getItem("accessToken") &&
 			dispatch(loginSuccess());
-	}, [isAuth, dispatch]);
+	}, [isAuth, dispatch, _id]);
 
 	return isAuth ? (
 		<>

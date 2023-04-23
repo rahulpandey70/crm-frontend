@@ -17,22 +17,9 @@ const TicketDetail = () => {
 		(state) => state.tickets
 	);
 
-	const [message, setMessage] = useState("");
-	const [ticket, setTicket] = useState("");
-
-	const handleOnChange = (e) => {
-		const { value } = e.target;
-		setMessage(value);
-	};
-
-	const handleOnSubmit = (e) => {
-		e.preventDefault();
-		alert("Reply submitted");
-	};
-
 	useEffect(() => {
 		dispatch(fetchSingleTicket(tId));
-	}, [message, tId, dispatch]);
+	}, [tId, dispatch]);
 
 	return (
 		<Container>
@@ -44,7 +31,11 @@ const TicketDetail = () => {
 			<Row>
 				<Col>
 					{isLoading && <Spinner variant="primary" animation="border" />}
-					{error && <Alert variant="danger">{error}</Alert>}
+					{error && (
+						<Alert variant="danger" className="text-center">
+							{error}
+						</Alert>
+					)}
 				</Col>
 			</Row>
 			<Row>
@@ -67,11 +58,7 @@ const TicketDetail = () => {
 			<hr />
 			<Row className="mt-4">
 				<Col>
-					<ReplyToClient
-						handleOnChange={handleOnChange}
-						handleOnSubmit={handleOnSubmit}
-						message={message}
-					/>
+					<ReplyToClient id={tId} />
 				</Col>
 			</Row>
 		</Container>

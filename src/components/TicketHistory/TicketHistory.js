@@ -4,6 +4,7 @@ import "./TicketHistory.css";
 
 const TicketHistory = ({ msg }) => {
 	if (!msg) return null;
+
 	return msg.map((singleMsg, idx) => (
 		<div key={idx} className="ticket-history mt-3">
 			<div className="send font-weight-bold text-secondary">
