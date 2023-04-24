@@ -9,9 +9,14 @@ export const getUserProfile = () => (dispatch) => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			dispatch(getUserPending());
+
+			const accessToken = sessionStorage.getItem("accessToken");
+
+			if (!accessToken) return reject("Token not found");
+
 			const result = await axios.get("http://localhost:5000/v1/user/", {
 				headers: {
-					Authorization: sessionStorage.getItem("accessToken"),
+					Authorization: accessToken,
 				},
 			});
 

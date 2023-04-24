@@ -22,10 +22,10 @@ export const fetchAllTickets = () => (dispatch) => {
 				},
 			});
 
-			resolve(result.data.data);
-			dispatch(fetchTicketSuccess(result.data.data));
+			resolve(result);
+			result.data.data.length && dispatch(fetchTicketSuccess(result.data.data));
 		} catch (error) {
-			reject(error.message);
+			reject(error);
 			dispatch(fetchTicketError(error.message));
 		}
 	});
@@ -45,10 +45,10 @@ export const fetchSingleTicket = (id) => (dispatch) => {
 				},
 			});
 
-			resolve(result.data.data[0]);
+			resolve(result);
 			dispatch(fetchSingleTicketSuccess(result.data.data[0]));
 		} catch (error) {
-			reject(error.message);
+			reject(error);
 			dispatch(fetchSingleTicketError(error.message));
 		}
 	});
@@ -72,12 +72,12 @@ export const replyTicket = (id, msgObj) => (dispatch) => {
 				return dispatch(replyTicketError(result.message));
 			}
 
-			resolve(result.data.message);
+			resolve(result);
 			dispatch(fetchSingleTicket(id));
 
 			dispatch(replyTicketSuccess(result.data.message));
 		} catch (error) {
-			reject(error.message);
+			reject(error);
 			dispatch(replyTicketError(error.message));
 		}
 	});

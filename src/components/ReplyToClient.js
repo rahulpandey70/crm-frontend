@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
-
+import PropTypes from "prop-types";
 import { replyTicket } from "../redux-toolkit/actions/ticketActions";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -10,7 +10,9 @@ const ReplyToClient = ({ id }) => {
 	const dispatch = useDispatch();
 	const { replyMsg } = useSelector((state) => state.tickets);
 
-	const { user } = useSelector((state) => state.user);
+	const {
+		user: { name },
+	} = useSelector((state) => state.user);
 
 	const handleOnChange = (e) => {
 		const { value } = e.target;
@@ -21,7 +23,7 @@ const ReplyToClient = ({ id }) => {
 		e.preventDefault();
 		const msgObj = {
 			message,
-			sender: user.name,
+			sender: name,
 		};
 		dispatch(replyTicket(id, msgObj));
 		setMessage("");
@@ -51,3 +53,7 @@ const ReplyToClient = ({ id }) => {
 };
 
 export default ReplyToClient;
+
+ReplyToClient.propTypes = {
+	id: PropTypes.string.isRequired,
+};

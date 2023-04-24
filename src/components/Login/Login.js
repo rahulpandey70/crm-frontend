@@ -33,7 +33,8 @@ const Login = ({ formLoader }) => {
 
 	useEffect(() => {
 		sessionStorage.getItem("accessToken") && navigate("/dashboard");
-	}, [navigate, isAuth]);
+		dispatch(getUserProfile());
+	}, [navigate, isAuth, dispatch]);
 
 	const handleOnChange = (e) => {
 		const { name, value } = e.target;
@@ -56,16 +57,18 @@ const Login = ({ formLoader }) => {
 		}
 
 		dispatch(loginPending());
+
 		try {
-			const auth = await userLogin({ email, password });
-			if (auth.status === "error") {
-				return dispatch(loginError(auth.message));
+			const isAuth = await userLogin({ email, password });
+
+			if (isAuth.status === "error") {
+				return dispatch(loginError(isAuth.message));
 			}
 
 			dispatch(loginSuccess());
-			dispatch(getUserProfile());
 			navigate("/dashboard");
 		} catch (error) {
+			console.log(error);
 			dispatch(loginError(error.message));
 		}
 	};
