@@ -7,7 +7,7 @@ import { getNewAccessToken } from "../../redux-toolkit/actions/userActions";
 
 import { getUserProfile } from "../../redux-toolkit/actions/userActions";
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ children }) => {
 	const dispatch = useDispatch();
 	const { isAuth } = useSelector((state) => state.login);
 	const {
@@ -20,8 +20,6 @@ const PrivateRoute = ({ children, ...rest }) => {
 			result && dispatch(loginSuccess());
 		};
 
-		_id && dispatch(getUserProfile());
-
 		!sessionStorage.getItem("accessToken") &&
 			localStorage.getItem("crmRfToken") &&
 			updateJwtToken();
@@ -29,6 +27,8 @@ const PrivateRoute = ({ children, ...rest }) => {
 		!isAuth &&
 			sessionStorage.getItem("accessToken") &&
 			dispatch(loginSuccess());
+
+		_id && dispatch(getUserProfile());
 	}, [isAuth, dispatch, _id]);
 
 	return isAuth ? (

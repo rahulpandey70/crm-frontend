@@ -10,26 +10,18 @@ export const getUserProfile = () => (dispatch) => {
 		try {
 			dispatch(getUserPending());
 
-			const accessToken = sessionStorage.getItem("accessToken");
-
-			if (!accessToken) return reject("Token not found");
-
 			const result = await axios.get("http://localhost:5000/v1/user/", {
 				headers: {
-					Authorization: accessToken,
+					Authorization: sessionStorage.getItem("accessToken"),
 				},
 			});
 
-			resolve(result.data);
+			resolve(result);
 
-			if (result.data.user && result.data.user._id) {
-				return dispatch(getUserSuccess(result.data.user));
-			}
-
-			dispatch(getUserError("User not found"));
+			dispatch(getUserSuccess(result.data.user));
 		} catch (error) {
-			reject(error.message);
-			console.log("user not found", error.message);
+			reject(error);
+			console.log(error.response);
 			dispatch(getUserError(error.message));
 		}
 	});
@@ -71,9 +63,9 @@ export const userLogout = () => {
 				}
 			);
 
-			resolve(result.data);
+			resolve(result);
 		} catch (error) {
-			reject(error.message);
+			reject(error);
 		}
 	});
 };
