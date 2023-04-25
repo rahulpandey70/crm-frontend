@@ -10,6 +10,9 @@ import {
 	replyTicketLoading,
 	replyTicketSuccess,
 	replyTicketError,
+	closeTicketLoading,
+	closeTicketSuccess,
+	closeTicketError,
 } from "../slice/ticketSlice";
 
 export const fetchAllTickets = () => (dispatch) => {
@@ -46,7 +49,9 @@ export const fetchSingleTicket = (id) => (dispatch) => {
 			});
 
 			resolve(result);
-			dispatch(fetchSingleTicketSuccess(result.data.data[0]));
+			dispatch(
+				fetchSingleTicketSuccess(result.data.data.length && result.data.data[0])
+			);
 		} catch (error) {
 			reject(error);
 			dispatch(fetchSingleTicketError(error.message));
@@ -79,6 +84,35 @@ export const replyTicket = (id, msgObj) => (dispatch) => {
 		} catch (error) {
 			reject(error);
 			dispatch(replyTicketError(error.message));
+		}
+	});
+};
+
+export const closeTicket = (id) => (dispatch) => {
+	return new Promise(async (resolve, reject) => {
+		dispatch(closeTicketLoading());
+		try {
+			const result = await axios.patch(
+				`http://localhost:5000/v1/ticket/close-ticket/${id}`,
+				{},
+				{
+					headers: {
+						Authorization: sessionStorage.getItem("accessToken"),
+					},
+				}
+			);
+
+			if (result.status === "error") {
+				return dispatch(closeTicketError(result.message));
+			}
+
+			resolve(result);
+			dispatch(fetchSingleTicket(id));
+
+			dispatch(closeTicketSuccess(result.data.message));
+		} catch (error) {
+			reject(error);
+			dispatch(closeTicketError(error.message));
 		}
 	});
 };
