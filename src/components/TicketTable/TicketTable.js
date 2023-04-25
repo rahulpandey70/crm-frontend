@@ -41,7 +41,9 @@ const TicketTable = () => {
 								</Link>
 							</td>
 							<td>{ticket.status}</td>
-							<td>{ticket.openAt}</td>
+							<td>
+								{ticket.openAt && new Date(ticket.openAt).toLocaleString()}
+							</td>
 						</tr>
 					))
 				) : (

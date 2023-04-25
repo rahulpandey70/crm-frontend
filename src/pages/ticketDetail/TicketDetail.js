@@ -4,7 +4,10 @@ import Breadcumbs from "../../components/Breadcumbs";
 import TicketHistory from "../../components/TicketHistory/TicketHistory";
 import ReplyToClient from "../../components/ReplyToClient";
 
-import { fetchSingleTicket } from "../../redux-toolkit/actions/ticketActions";
+import {
+	fetchSingleTicket,
+	closeTicket,
+} from "../../redux-toolkit/actions/ticketActions";
 
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +19,8 @@ const TicketDetail = () => {
 	const { isLoading, error, selectedTicket } = useSelector(
 		(state) => state.tickets
 	);
+
+	const { replyMsg } = useSelector((state) => state.tickets);
 
 	useEffect(() => {
 		dispatch(fetchSingleTicket(tId));
@@ -36,16 +41,27 @@ const TicketDetail = () => {
 							{error}
 						</Alert>
 					)}
+					{replyMsg && <Alert variant="success">{replyMsg}</Alert>}
 				</Col>
 			</Row>
 			<Row>
 				<Col className="text-weight-border text-secondary">
 					<div className="subject">Subject : {selectedTicket.subject}</div>
-					<div className="date">Ticket Opened : {selectedTicket.openAt}</div>
+					<div className="date">
+						Ticket Opened :{" "}
+						{selectedTicket.openAt &&
+							new Date(selectedTicket.openAt).toLocaleString()}
+					</div>
 					<div className="status">Status : {selectedTicket.status}</div>
 				</Col>
 				<Col className="text-end">
-					<Button variant="outline-info">Close Ticket</Button>
+					<Button
+						variant="outline-info"
+						onClick={() => dispatch(closeTicket(tId))}
+						disabled={selectedTicket.status === "Closed"}
+					>
+						Close Ticket
+					</Button>
 				</Col>
 			</Row>
 			<Row className="mt-4">

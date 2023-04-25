@@ -7,7 +7,7 @@ import { getNewAccessToken } from "../../redux-toolkit/actions/userActions";
 
 import { getUserProfile } from "../../redux-toolkit/actions/userActions";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, ...rest }) => {
 	const dispatch = useDispatch();
 	const { isAuth } = useSelector((state) => state.login);
 	const {
@@ -37,7 +37,9 @@ const PrivateRoute = ({ children }) => {
 			{children}
 		</>
 	) : (
-		<Navigate to="/" />
+		<>
+			<Navigate to="/" />
+		</>
 	);
 };
 

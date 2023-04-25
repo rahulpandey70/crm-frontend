@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Alert } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { replyTicket } from "../redux-toolkit/actions/ticketActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,7 +8,6 @@ const ReplyToClient = ({ id }) => {
 	const [message, setMessage] = useState("");
 
 	const dispatch = useDispatch();
-	const { replyMsg } = useSelector((state) => state.tickets);
 
 	const {
 		user: { name },
@@ -31,8 +30,6 @@ const ReplyToClient = ({ id }) => {
 
 	return (
 		<div>
-			{replyMsg && <Alert variant="success">{replyMsg}</Alert>}
-
 			<Form onSubmit={handleOnSubmit}>
 				<Form.Label>Reply To Your Client</Form.Label>
 				<Form.Control

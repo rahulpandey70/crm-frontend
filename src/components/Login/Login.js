@@ -32,8 +32,11 @@ const Login = ({ formLoader }) => {
 	const { isLoading, isAuth, error } = useSelector((state) => state.login);
 
 	useEffect(() => {
-		sessionStorage.getItem("accessToken") && dispatch(getUserProfile());
-	}, [dispatch]);
+		if (isAuth && sessionStorage.getItem("accessToken")) {
+			dispatch(getUserProfile());
+			navigate("/dashboard");
+		}
+	}, [dispatch, isAuth]);
 
 	const handleOnChange = (e) => {
 		const { name, value } = e.target;
@@ -68,7 +71,6 @@ const Login = ({ formLoader }) => {
 			dispatch(getUserProfile());
 			navigate("/dashboard");
 		} catch (error) {
-			console.log(error);
 			dispatch(loginError(error.message));
 		}
 	};
