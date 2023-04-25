@@ -17,16 +17,20 @@ const PrivateRoute = ({ children, ...rest }) => {
 	useEffect(() => {
 		const updateJwtToken = async () => {
 			const result = await getNewAccessToken();
-			result && dispatch(loginSuccess());
+			if (result) {
+				dispatch(loginSuccess());
+				dispatch(getUserProfile());
+			}
 		};
 
 		!sessionStorage.getItem("accessToken") &&
 			localStorage.getItem("crmRfToken") &&
 			updateJwtToken();
 
-		!isAuth &&
-			sessionStorage.getItem("accessToken") &&
+		if (!isAuth && sessionStorage.getItem("accessToken")) {
 			dispatch(loginSuccess());
+			dispatch(getUserProfile());
+		}
 
 		_id && dispatch(getUserProfile());
 	}, [isAuth, dispatch, _id]);

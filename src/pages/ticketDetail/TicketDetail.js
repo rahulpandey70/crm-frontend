@@ -16,11 +16,8 @@ const TicketDetail = () => {
 	const { tId } = useParams();
 
 	const dispatch = useDispatch();
-	const { isLoading, error, selectedTicket } = useSelector(
-		(state) => state.tickets
-	);
-
-	const { replyMsg } = useSelector((state) => state.tickets);
+	const { isLoading, error, selectedTicket, replyMsg, replyTicketError } =
+		useSelector((state) => state.tickets);
 
 	useEffect(() => {
 		dispatch(fetchSingleTicket(tId));
@@ -39,6 +36,11 @@ const TicketDetail = () => {
 					{error && (
 						<Alert variant="danger" className="text-center">
 							{error}
+						</Alert>
+					)}
+					{replyTicketError && (
+						<Alert variant="danger" className="text-center">
+							{replyTicketError}
 						</Alert>
 					)}
 					{replyMsg && <Alert variant="success">{replyMsg}</Alert>}
